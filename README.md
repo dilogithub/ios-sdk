@@ -1,7 +1,9 @@
-#README
+README
+===
 iOS 10버전 이상 권장합니다.
 
-#FRAMEWOKR 추가
+FRAMEWOKR 추가
+===
 
 ![img1](https://user-images.githubusercontent.com/73524723/114341872-b2f89500-9b95-11eb-9109-266d621d034c.png)
 
@@ -13,8 +15,9 @@ __TARGET > General > Frameworks, Libraries, and Embedded Content__ 에 DILO에�
 
 __TARGETS > Build Phases > Link Binary With Libraries__ 에 DILO에서 제공한 framework를 추가한 후 Status 값 형태를 __Required__ 로 선택.
 
-#광고 요청 샘플코드(SWFIT)
-```SWFIT
+광고 요청 샘플코드(SWFIT)
+===
+```swift
 import DiloSDK
 
 class ViewController: UIViewController {
