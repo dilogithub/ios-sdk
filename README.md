@@ -321,3 +321,35 @@ class ViewController: UIViewController {
   [self.adManager stop];
 }
 ```
+
+클래스 명세(SWIFT)
+===
+
+Class AdManager
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|sharedInstance|`AdManager`|싱글톤 인스턴스|
+
+Method
+|Name|Parameter|Type|Description|
+|---|:---:|:---:|:---|
+|setCompanionSlot|\_: `UIVIew`|`Void`|컴패니언 view 설정 <br />\*argument로 넘긴 UIView에 대한 숨김/보임 처리는<br />SDK에서 자동으로 처리.<br />처음 set되었을 경우, 기본적으로 숨김처리 상태|
+|setSkipButton|\_: `UIVIew`|`Void`|광고 스킵버튼 설정|
+|requestAd|\_: `RequestParam`<br />\_: (`Bool`) -> `Void`|`Void`|광고요청<br />콜백 리스너를 통해서 요청결과값 리턴 throws `AdRequestError`|
+|start| |`Void`|광고 재생|
+|playOrPause| |`Void`|광고 중지/재생|
+|skip| |`Bool`|현재 재생중인 광고 스킵요청<br />스킵이 불가능할 경우 `false` 리턴<br />\*스킵이 불가능한 경우<br />1. 스킵이 n초이고 광고 프로세스가 n보다 작을때<br />2. 스킵자체가 불가능한 광고일 경우<br /><br />\*setSkipButton(UIView)을 이용하여 스킵버튼을 지정한경우 직저적으로 구현하지 않아도 됩니다.|
+|stop| |`Void`|광고 종료<br />받아온 광고를 모두 종료한다.<br />\*사용자가 직접호출할 수 없도록 권장함.|
+|reloadCompanion|\_: `UIView`|`Void`|현재 광고에 포함되어있는 컴패니언을 다시 불러온다|
+|onAdReady|\_: () -> `Void`|`Void`|광고요청 후 응답된 광고가 1개 이상일 경우 호출|
+|onAdStart|\_: (`AdInfo`) -> `Void`|`Void`|광고가 시작되었을 경우 리스너 호출.<br />\*광고가 n개일 경우 n번 호출|
+|onTimeUpadate|\_: (`DiloSDK.Progress`) -> `Void`|`Void`|광고가 재생중일때 0.3초마다 리스너 호출|
+|onPause|\_: () -> `Void`|`Void`|재생중인 광고가 일시중지 되었을 경우 호출<br />\*playOrpause() 함수를 직접 호출 했을경우에만 발생하는 이벤트.|
+|onResume|\_: () -> `Void`|`Void`|일시중지 되었던 광고가 재개되었을 경우 호출<br />\*playOrPuase() 함수를 직접 호출 했을경 우에만 발생하는 이벤트.|
+|onSkipEnabled|\_: (`int`) -> `Void`|`Void`|현재 재생중인 광고가 스킵이 가능해졌을 경 우 리스너 호출|
+|onAdCompleted|\_: () -> `Void`|`Void`|재생중인 광고가 완료되었을때 호출.<br />광고개 n개있을경우 n번 호출|
+|onAllAdsCompleted|\_: () -> `Void`|`Void`|응답받은 모든 광고가 재생완료 되었을 경우 호출|
+|onError|\_: () -> `Void`|`Void`|광고 실행중 에러가 발생했을 경우 호출|
