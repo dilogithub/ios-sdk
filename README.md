@@ -2,12 +2,14 @@
 iOS 10버전 이상 권장합니다.
 
 #FRAMEWOKR 추가
-![img1](https://studio.dio.co.kr)
+
+![img1](https://user-images.githubusercontent.com/73524723/114341872-b2f89500-9b95-11eb-9109-266d621d034c.png)
+
 
 __TARGET > General > Frameworks, Libraries, and Embedded Content__ 에 DILO에서 제공한 framework를 Drag & Drop해서 포함시킨후 __Embed__ 형태로 사용.
 
 
-![img2](https://studio.dio.co.kr)
+![img2](https://user-images.githubusercontent.com/73524723/114341896-c3107480-9b95-11eb-8cb4-eb0463e0adad.png)
 
 __TARGETS > Build Phases > Link Binary With Libraries__ 에 DILO에서 제공한 framework를 추가한 후 Status 값 형태를 __Required__ 로 선택.
 
