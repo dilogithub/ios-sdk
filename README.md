@@ -353,3 +353,85 @@ Method
 |onAdCompleted|\_: () -> `Void`|`Void`|재생중인 광고가 완료되었을때 호출.<br />광고개 n개있을경우 n번 호출|
 |onAllAdsCompleted|\_: () -> `Void`|`Void`|응답받은 모든 광고가 재생완료 되었을 경우 호출|
 |onError|\_: () -> `Void`|`Void`|광고 실행중 에러가 발생했을 경우 호출|
+
+Class RequestParam
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|bundleId|`String`|번들 식별값<br />Bundle.main.bundleIdentifier|
+|epiCode|`String`|DILO와 광고하기로 약속된 컨텐츠 식별값<br />\*보통은 컨텐츠 URL|
+|drs|`NSNumber?`|drs(초)만큼 길이의 광고 응답<br />\*fillType이 .SINGLE_ANY일 경우 nil값 셋팅|
+|productType|`RequestParam.ProductType`|.DILO: 오디오 광고<br />.DILO_PLUS: [오디오, 오디오 + 컴패니언] 랜덤<br />.DILO_PLUS_ONLY: 오디오 + 컴패니언 광고
+|fillType|`RequestParam.FillType`|.SINGLE: drs(초) 길이의 단일 광고 요청<br />.MULTI: drs(초) 길이의 한개 이상의 광고 요청<br />.SINGLE_ANY: 6, 10, 15초 랜덤 단일광고 요청
+
+Method
+|Name|Parameter|Type|Description|
+|---|:---:|:---:|:---|
+|init|bundleId: `String`<br />epiCode: `String`<br />drs: `NSNumber?`<br />productType: `ProductType`<br />fillType: `FillType`|`RequestParam`|`RequestParam`인스턴스 생성자|
+
+Enum RequestParam.ProductType
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|DILO| |오디오광고만 요청|
+|DILO_PLUS| |오디오, (오디오 + 컴패니언) 광고 랜덤 요청|
+|DILO_PLUS_ONLY| |오디오 + 컴패니언 광고 요청|
+
+
+Enum RequestParam.FillType
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|SINGLE| |drs(초) 길이의 단일 광고 요청|
+|MULTI| |총 drs(초) 길이의 한개 이상의 광고요청|
+|SINGLE_ANY| |drs(초)와 관계없이 6, 10, 15초 단일 광고 랜덤 요청|
+
+
+Enum AdRequeastError
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|InvalidADServerURL| |SDK에 설정된 광고 서버 URL이 잘못되었을경우 (해당 경우에는 DILO 담당자에게 연락)|
+|InvalidRequestOption| |광고 요청에 필요한 필수값을 잘못 입력하였을 경우|
+
+
+
+Class Progress
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|current|`int`|현재 재생중인 광고의 순서<br />1 Base Index|
+|total|`int`|요청에 응답된 광고 총 갯수|
+|duration|`Double`|현재 재생중인 광고의 총 길이(초)|
+|seconds|`Double`|현재 재생중인 광고의 현재시간(초)|
+
+
+Class AdInfo
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|adType|`String`|광고 타입<br />- audio: 오디오 광고<br />- hybrid: 오디오 + 컴패니언 광고|
+|advertiser|`String`|광고주명|
+|title|`String`|광고명|
+|current|`Int`|광고의 순서<br />1 Base Index|
+|total|`Int`|요청에 응답된 광고 총 갯수|
+|duration|`Double`|광고의 총 길이(초)|
+|skipTime|`Double`|광고 스킵가능한 시간(초)<br />\*0일경우 스킵불가|
+|hasCompanion|`Bool`|컴패니언 광고여부|
+
+
+
+
+
