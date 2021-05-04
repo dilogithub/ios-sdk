@@ -130,7 +130,7 @@ class ViewController: UIViewController {
       
       // 광고시간 설정
       // RequestParam.FillType.SINGLE_ANY일 경우 nil설정 
-      drs: drs
+      drs: drs,
 
       // 광고타입 설정. RequestParam.ProductType 참조
       // .DILO -> 오디오만 나오는 광고
