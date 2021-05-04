@@ -29,12 +29,16 @@ class ViewController: UIViewController {
     
     // (optional) Companion 광고를 사용하는경우
     // 설정하지 않을경우 companion 광고 노출하지 않음 
+    // `DILO_PLUS_ONLY`로 광고요청할 경우 필수값
     adManager.setCompanionSlot(companionView)
     
     // (optional) 광고 스킵버튼을 사용하는경우
     // 스킵버튼을 받는 목적 -> 스킵가능 여부에 따른 버튼 표시/숨김 자동 
     // 설정하지 않고 직접구현 가능 @see AdManager#onSkipEnabled
     adManager.setSkipButton(companionView)
+    
+    // (optional) 컴패니언 닫기버튼구현
+    adManager.setCloseButton(closeButton)
     
     // 광고요청시 받아온 광고가 0개일경우 호출 (호출되었을경우 본컨텐츠 재생권장) 
     adManager.onNoFill {
@@ -99,8 +103,34 @@ class ViewController: UIViewController {
       bundleId: bundleId,
 
       // DILO와 협의된 컨텐츠의 식별값
-      // 예) https://test.com/audio/episode.mp3 
+      // 예) test.com/audio/episode.mp3 
+      // URL일경우 http|https의 스키마는 빼고 광고요청하는것을 권장
       epiCode: epiCode,
+      
+      // 광고요청한 에피소드가 속해있는 채널명
+      // 추후 리포트에 반영되는 값
+      // 채널명이 없을경우 리포트에 보여질 임의값 설정
+      chName: "",
+      
+      // 광고요청한 에피소드의 타이틀
+      // 추후 리포트에 반영되는 값
+      // 에피소드명이 없을경우 리포트에 보여질 임의값 설정
+      epName: "",
+      
+      // 광고요청한 에피소드의 창작자명
+      // 추후 리포트에 반영되는 값
+      // 창작자명이 없을경우 리포트에 보여질 임의값 설정
+      creatorName: "",
+      
+      // 광고요청한 에피소드의 창작자 중복되지 않는 고유식별값
+      // DILO가 아닌 구현하는 쪽에서 식별할수있는 값
+      // 예) `user#0001`, `12391`, `user@dilo.co.kr` ...
+      // 중복될 경우 같은 창작자로 인식하여 리포트 집계
+      creatorIdentifier: "",
+      
+      // 광고시간 설정
+      // RequestParam.FillType.SINGLE_ANY일 경우 nil설정 
+      drs: drs
 
       // 광고타입 설정. RequestParam.ProductType 참조
       // .DILO -> 오디오만 나오는 광고
@@ -114,9 +144,11 @@ class ViewController: UIViewController {
       // .SIINGLE_ANY -> drs와 상관없이 6초, 10초, 15초 랜덤의 단일 광고요청
       fillType: fillType,
 
-      // 광고시간 설정
-      // RequestParam.FillType.SINGLE_ANY일 경우 nil설정 
-      drs: drs
+      // 광고를 호출한 시점에서의 위치
+      // 에피소드를 시작하기전에 호출할경우 .PRE
+      // 에피소드 중간에 광고를 호출할경우 .MID
+      // 에피소드가 끝난후 호출할경우 .POST
+      adPosition: adPosition
     )
 
     do {
@@ -391,6 +423,17 @@ Property
 |SINGLE| |drs(초) 길이의 단일 광고 요청|
 |MULTI| |총 drs(초) 길이의 한개 이상의 광고요청|
 |SINGLE_ANY| |drs(초)와 관계없이 6, 10, 15초 단일 광고 랜덤 요청|
+
+
+Enum RequestParam.AdPositionType
+---
+
+Property
+|Name|Type|Description|
+|---|:---:|:---|
+|PRE| |에피소드 시작전에 광고 호출한경우|
+|MID| |에피소드 플레이중에 광고를 호출한 경우|
+|POST| |에피소드가 끝난후 광고를 호출한 경우|
 
 
 Enum AdRequeastError
