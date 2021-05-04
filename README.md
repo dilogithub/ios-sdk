@@ -2,7 +2,7 @@ README
 ===
 iOS 10버전 이상 권장합니다.
 
-FRAMEWOKR 추가
+FRAMEWORK 추가
 ===
 
 ![img1](https://user-images.githubusercontent.com/73524723/114341872-b2f89500-9b95-11eb-9109-266d621d034c.png)
