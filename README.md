@@ -197,7 +197,7 @@ class ViewController: UIViewController {
     adManager.stop()
   }
 }
-
+```
 
 클래스 명세(SWIFT)
 ===
