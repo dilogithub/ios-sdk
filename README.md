@@ -92,6 +92,11 @@ class ViewController: UIViewController {
     adManager.onError { (errorMessage: String) in
       ...
     } 
+    
+    // 컴패니언이 사용자에의해 
+    adManager.onCompanionClosed {  
+      ...
+    }
   }
 
   // 광고 요청 프로세스
