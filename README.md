@@ -93,7 +93,7 @@ class ViewController: UIViewController {
       ...
     } 
     
-    // 컴패니언이 사용자에의해 
+    // 컴패니언이 사용자에의해 닫혔을경우 호출
     adManager.onCompanionClosed {  
       ...
     }
