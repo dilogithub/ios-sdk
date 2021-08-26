@@ -151,22 +151,7 @@ class ViewController: UIViewController {
       adPosition: adPosition
     )
 
-    do {
-      // 위에 설정한 값을 토대로 광고요청
-      // 필수값 설정이 잘못되었을 경우 에러(AdRequestError 참조)
-      // .InvalidRequestOption -> 요청정보가 잘못되었을 경우
-      // .InvalidADServerURL -> 광고 서버 URL이 잘못설정 되었을 경우(DILO에 문의)
-      try admanager.requestAd(adRequestParam) { (result: Bool) in // 광고요청 결과
-        // true 광고요청에 받아온 광고가 1개이상 있음
-        // false 광고요청에 받아온 광고가 0개 
-        if result {
-          // (optional) 광고를 받아온 후 바로 광고재생을 원할경우 
-          self.admanager.start()
-        } 
-      }
-    } catch let err {
-      ...
-    } 
+    adManager.requestAd(adRequestParam)
   }
 
   // 광고 스킵요청
