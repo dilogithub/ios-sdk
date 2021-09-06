@@ -205,7 +205,7 @@ Method
 |---|:---:|:---:|:---|
 |setCompanionSlot|\_: `UIVIew`|`Void`|컴패니언 view 설정 <br />\*argument로 넘긴 UIView에 대한 숨김/보임 처리는<br />SDK에서 자동으로 처리.<br />처음 set되었을 경우, 기본적으로 숨김처리 상태|
 |setSkipButton|\_: `UIVIew`|`Void`|광고 스킵버튼 설정|
-|requestAd|\_: `RequestParam`<br />\_: (`Bool`) -> `Void`|`Void`|광고요청<br />콜백 리스너를 통해서 요청결과값 리턴 throws `AdRequestError`|
+|requestAd|\_: `RequestParam`<br />\_: (`Bool`) -> `Void`|`Void`|광고요청<br />콜백 리스너를 통해서 요청결과값 리턴|
 |start| |`Void`|광고 재생|
 |playOrPause| |`Void`|광고 중지/재생|
 |skip| |`Bool`|현재 재생중인 광고 스킵요청<br />스킵이 불가능할 경우 `false` 리턴<br />\*스킵이 불가능한 경우<br />1. 스킵이 n초이고 광고 프로세스가 n보다 작을때<br />2. 스킵자체가 불가능한 광고일 경우<br /><br />\*setSkipButton(UIView)을 이용하여 스킵버튼을 지정한경우 직저적으로 구현하지 않아도 됩니다.|
