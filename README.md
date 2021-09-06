@@ -211,7 +211,7 @@ Method
 |skip| |`Bool`|현재 재생중인 광고 스킵요청<br />스킵이 불가능할 경우 `false` 리턴<br />\*스킵이 불가능한 경우<br />1. 스킵이 n초이고 광고 프로세스가 n보다 작을때<br />2. 스킵자체가 불가능한 광고일 경우<br /><br />\*setSkipButton(UIView)을 이용하여 스킵버튼을 지정한경우 직저적으로 구현하지 않아도 됩니다.|
 |stop| |`Void`|광고 종료<br />받아온 광고를 모두 종료한다.<br />\*사용자가 직접호출할 수 없도록 권장함.|
 |reloadCompanion|\_: `UIView`|`Void`|현재 광고에 포함되어있는 컴패니언을 다시 불러온다|
-|getAdState| |`Float`|현재 광고상태 확인. -1: 광고를 재생할 수 없는 상태. 0: 광고가 일시중지 상태. 1: 광고가 재생중인 상태|
+|getAdState| |`Float`|현재 광고상태 확인.<br />-1: 광고를 재생할 수 없는 상태.<br />0: 광고가 일시중지 상태.<br />1: 광고가 재생중인 상태|
 |onAdReady|\_: () -> `Void`|`Void`|광고요청 후 응답된 광고가 1개 이상일 경우 호출|
 |onAdStart|\_: (`AdInfo`) -> `Void`|`Void`|광고가 시작되었을 경우 리스너 호출.<br />\*광고가 n개일 경우 n번 호출|
 |onTimeUpadate|\_: (`DiloSDK.Progress`) -> `Void`|`Void`|광고가 재생중일때 0.3초마다 리스너 호출|
