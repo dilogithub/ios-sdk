@@ -1,6 +1,6 @@
 README
 ===
-iOS 10버전 이상 권장합니다.
+iOS 11버전 이상 권장합니다.
 
 FRAMEWORK 추가
 ===
