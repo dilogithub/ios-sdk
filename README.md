@@ -1,6 +1,11 @@
 README
 ===
-iOS 11버전 이상 권장합니다.
+1. iOS 11버전 이상 권장합니다.
+2. Progress bar 구현은 매체의 선택사항이지만 오디오 광고 혹은 전면 배너 노출 시 SKIP 버튼 영역 지정을 위해 구현을 권장합니다
+   앱 UI에 맞게 배경/텍스트 컬러값 등을 설정하고, 구성요소는 아래 내용을 참고합니다
+   SKIP이 가능한 시점 이전에는 SKIP 아이콘을 노출하지 않습니다
+   ![플레이어바 디자인 가이드](https://user-images.githubusercontent.com/73524723/165213482-0ce69bfe-8644-4444-8bd4-9bdc0c663302.png)
+
 
 FRAMEWORK 추가
 ===
@@ -29,7 +34,7 @@ class ViewController: UIViewController {
     
     // (optional) Companion 광고를 사용하는경우
     // 설정하지 않을경우 companion 광고 노출하지 않음 
-    // `DILO_PLUS_ONLY`로 광고요청할 경우 필수값
+    // `DILO_PLUS`, `DILO_PLUS_ONLY`로 광고요청할 경우 필수값
     adManager.setCompanionSlot(companionView)
     
     // (optional) 광고 스킵버튼을 사용하는경우
@@ -57,7 +62,6 @@ class ViewController: UIViewController {
     }
 
     // 광고 재생시 광고에대한 정보 리스너 설정
-    // 광고가 n개있을경우 n번 호출 
     adManager.onAdStart { (adInfo: AdInfo) in
       ...
     }
@@ -77,8 +81,7 @@ class ViewController: UIViewController {
       ...
     }
     
-    // 광고가 재생완료되었을경우 호출 
-    // 광고가 n개 있을경우 n번 호출 
+    // 광고가 재생완료되었을경우 호출
     adManager.onAdCompleted {
       ...
     }
@@ -139,14 +142,13 @@ class ViewController: UIViewController {
 
       // 광고타입 설정. RequestParam.ProductType 참조
       // .DILO -> 오디오만 나오는 광고
-      // .DILO_PLUS -> 오디오 + 컴패니언 광고
+      // .DILO_PLUS -> 오디오 또는 오디오 + 컴패니언 광고
       // .DILO_PLUS_ONLY -> 오디오 + 컴패니언 광고 (컴패니언이 무조건 포함)
       productType: productType,
 
       // 광고 갯수 타입 설정. RequestParam.FillType 참조
-      // .SINGLE -> 단일 광고 요청 drs에 맞는 길이의 광고요청
-      // .MULTI -> 아래 drs값의 길이에 맞게 광고요청
-      // .SIINGLE_ANY -> drs와 상관없이 6초, 10초, 15초 랜덤의 단일 광고요청
+      // .SINGLE -> drs에 맞는 길이의 단일 광고요청
+      // .SIINGLE_ANY -> drs와 상관없이 6, 10, 15, 20초 랜덤의 단일 광고요청
       fillType: fillType,
 
       // 광고를 호출한 시점에서의 위치
@@ -208,17 +210,17 @@ Method
 |requestAd|\_: `RequestParam`<br />\_: (`Bool`) -> `Void`|`Void`|광고요청<br />콜백 리스너를 통해서 요청결과값 리턴|
 |start| |`Void`|광고 재생|
 |playOrPause| |`Void`|광고 중지/재생|
-|skip| |`Bool`|현재 재생중인 광고 스킵요청<br />스킵이 불가능할 경우 `false` 리턴<br />\*스킵이 불가능한 경우<br />1. 스킵이 n초이고 광고 프로세스가 n보다 작을때<br />2. 스킵자체가 불가능한 광고일 경우<br /><br />\*setSkipButton(UIView)을 이용하여 스킵버튼을 지정한경우 직저적으로 구현하지 않아도 됩니다.|
-|stop| |`Void`|광고 종료<br />받아온 광고를 모두 종료한다.<br />\*사용자가 직접호출할 수 없도록 권장함.|
+|skip| |`Bool`|현재 재생중인 광고 스킵요청<br />스킵이 불가능할 경우 `false` 리턴<br />\*스킵이 불가능한 경우<br />1. 스킵이 n초이고 광고 프로세스가 n보다 작을때<br />2. 스킵자체가 불가능한 광고일 경우<br /><br />\*setSkipButton(UIView)을 이용하여 스킵버튼을 지정한경우 직접적으로 구현하지 않아도 됩니다.|
+|stop| |`Void`|광고 종료<br />받아온 광고를 모두 종료한다.<br />\*사용자가 직접 호출할 수 없도록 권장함.|
 |reloadCompanion|\_: `UIView`|`Void`|현재 광고에 포함되어있는 컴패니언을 다시 불러온다|
 |getAdState| |`Float`|현재 광고상태 확인.<br />-1: 광고를 요청하지 않은 상태, 광고를 요청했으나 노필인 상태, 혹은 그외에 광고를 재생할 수 없는 상태<br />0: 광고를 받아왔고 재생할 수 있는 상태 혹은 광고가 일시중지 상태<br />1: 광고가 재생중인 상태|
 |onAdReady|\_: () -> `Void`|`Void`|광고요청 후 응답된 광고가 1개 이상일 경우 호출|
-|onAdStart|\_: (`AdInfo`) -> `Void`|`Void`|광고가 시작되었을 경우 리스너 호출.<br />\*광고가 n개일 경우 n번 호출|
+|onAdStart|\_: (`AdInfo`) -> `Void`|`Void`|광고가 시작되었을 경우 리스너 호출.<br />|
 |onTimeUpadate|\_: (`DiloSDK.Progress`) -> `Void`|`Void`|광고가 재생중일때 0.3초마다 리스너 호출|
 |onPause|\_: () -> `Void`|`Void`|재생중인 광고가 일시중지 되었을 경우 호출<br />\*playOrpause() 함수를 직접 호출 했을경우에만 발생하는 이벤트.|
 |onResume|\_: () -> `Void`|`Void`|일시중지 되었던 광고가 재개되었을 경우 호출<br />\*playOrPuase() 함수를 직접 호출 했을경 우에만 발생하는 이벤트.|
 |onSkipEnabled|\_: (`int`) -> `Void`|`Void`|현재 재생중인 광고가 스킵이 가능해졌을 경 우 리스너 호출|
-|onAdCompleted|\_: () -> `Void`|`Void`|재생중인 광고가 완료되었을때 호출.<br />광고개 n개있을경우 n번 호출|
+|onAdCompleted|\_: () -> `Void`|`Void`|재생중인 광고가 완료되었을때 호출.<br />|
 |onAllAdsCompleted|\_: () -> `Void`|`Void`|응답받은 모든 광고가 재생완료 되었을 경우 호출|
 |onError|\_: () -> `Void`|`Void`|광고 실행중 에러가 발생했을 경우 호출|
 
@@ -232,7 +234,7 @@ Property
 |epiCode|`String`|DILO와 광고하기로 약속된 컨텐츠 식별값<br />\*보통은 컨텐츠 URL|
 |drs|`NSNumber?`|drs(초)만큼 길이의 광고 응답<br />\*fillType이 .SINGLE_ANY일 경우 nil값 셋팅|
 |productType|`RequestParam.ProductType`|.DILO: 오디오 광고<br />.DILO_PLUS: [오디오, 오디오 + 컴패니언] 랜덤<br />.DILO_PLUS_ONLY: 오디오 + 컴패니언 광고
-|fillType|`RequestParam.FillType`|.SINGLE: drs(초) 길이의 단일 광고 요청<br />.MULTI: drs(초) 길이의 한개 이상의 광고 요청<br />.SINGLE_ANY: 6, 10, 15초 랜덤 단일광고 요청
+|fillType|`RequestParam.FillType`|.SINGLE: drs(초) 길이의 단일 광고 요청<br />.SINGLE_ANY: 6, 10, 15, 20초 랜덤 단일광고 요청
 
 Method
 |Name|Parameter|Type|Description|
@@ -245,8 +247,8 @@ Enum RequestParam.ProductType
 Property
 |Name|Type|Description|
 |---|:---:|:---|
-|DILO| |오디오광고만 요청|
-|DILO_PLUS| |오디오, (오디오 + 컴패니언) 광고 랜덤 요청|
+|DILO| |오디오 광고만 요청|
+|DILO_PLUS| |오디오, 오디오 + 컴패니언 광고 랜덤 요청|
 |DILO_PLUS_ONLY| |오디오 + 컴패니언 광고 요청|
 
 
@@ -257,8 +259,8 @@ Property
 |Name|Type|Description|
 |---|:---:|:---|
 |SINGLE| |drs(초) 길이의 단일 광고 요청|
-|MULTI| |총 drs(초) 길이의 한개 이상의 광고요청|
-|SINGLE_ANY| |drs(초)와 관계없이 6, 10, 15초 단일 광고 랜덤 요청|
+|MULTI| |Deprecated|
+|SINGLE_ANY| |drs(초)와 관계없이 6, 10, 15, 20초 단일 광고 랜덤 요청|
 
 
 Enum RequestParam.AdPositionType
