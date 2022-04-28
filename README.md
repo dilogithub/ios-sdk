@@ -4,15 +4,8 @@
 App Store Connect > Privacy Policy 메뉴를 통해 데이터 수집 현황을 제출해야 합니다
 
 애플의 정책을 준수하고 보다 나은 서비스를 제공 드리기 위해 딜로 SDK 수집 항목에 대해 다음과 같이 안내 드립니다.
-* 딜로 SDK에서 광고 및 분석 목적으로 다음 데이터를 공유합니다
 
-| 카테고리	 | 데이터 유형 |
-|---|---|
-|기기 또는 기타 식별자 | IDFA 를 공유 |
-
-* 딜로 SDK에서 전송하는 모든 사용자 데이터는 전송 중에 암호화되며, 사용자가 데이터 삭제를 요청할 수 있는 방편을 제공하지 않습니다
-
-보다 자세한 수집항목의 내용은 [가이드문서](https://github.com/dilogithub/ios-sdk/files/8579157/iOS.SDK._220422.pdf)  확인 부탁드립니다
+[DILO SDK 수집항목 알아보기](https://github.com/dilogithub/ios-sdk/files/8579157/iOS.SDK._220422.pdf)
 
 ---
 
